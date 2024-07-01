@@ -1,3 +1,3 @@
-<div class="h-full w-full">
+<main>
 	<slot />
-</div>
+</main>
