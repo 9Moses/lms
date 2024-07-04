@@ -5,32 +5,36 @@
 	import { LoaderCircle } from 'lucide-svelte';
 	import { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { onMount } from 'svelte';
-	import toast, { Toaster } from 'svelte-french-toast';
-	import { page } from '$app/stores';
+
+	import { toast } from 'svelte-sonner';
 
 	export let data;
 
 	const form = superForm(data.form, {
-		validators: zodClient(loginSchema)
+		validators: zodClient(loginSchema),
+		onUpdated({ form }) {
+			if (form.message) {
+				if (!form.valid) {
+					toast.error(form.message, {
+						duration: 5000,
+						position: 'top-center'
+					});
+				} else {
+					toast.success('Login Successfull', {
+						duration: 5000,
+						position: 'top-center'
+					});
+				}
+			}
+		}
 	});
 
 	const { form: formData, enhance, delayed } = form;
-
-	onMount(() => {
-		const unsubscribe = page.subscribe(($page) => {
-			if ($page.status === 400 && $page.error) {
-				toast.error($page.error.message, {
-					duration: 5000,
-					position: 'top-center'
-				});
-			}
-			toast.error('Error');
-		});
-
-		return unsubscribe;
-	});
 </script>
+
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
 
 <div class="grid h-screen w-full grid-cols-2 gap-4">
 	<div class="">
@@ -78,5 +82,3 @@
 		</form>
 	</div>
 </div>
-
-<Toaster />

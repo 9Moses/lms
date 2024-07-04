@@ -17,19 +17,14 @@ export const actions = {
 		} = event;
 		const form = await superValidate(event, zod(loginSchema));
 		if (!form.valid) {
-			return fail(400, {
-				form
-			});
+			return fail(400, { form });
 		}
 		try {
 			await pb.collection('users').authWithPassword(form.data.email, form.data.password);
 		} catch (e) {
-			const { status } = e as ClientResponseError;
-			if (status === 404) {
-				return message(form, { status, message: 'User does not exist' });
-			}
-			return message(form, { status, message: 'An error occurred' });
+			const errorMessage = (e as ClientResponseError).data?.message || 'An unknown error occurred';
+			return message(form, errorMessage, { status: 400 });
 		}
-		redirect(303, '/');
+		return redirect(303, '/');
 	}
 };

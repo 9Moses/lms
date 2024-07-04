@@ -28,10 +28,10 @@
 			size={22}
 		/>
 		{label}
-		<div
-			class={cn('ml-auto h-full border-2 border-primary opacity-0 transition-all', {
-				'opacity-100': isActive
-			})}
-		/>
 	</div>
+	<div
+		class={cn('ml-auto h-full border-2 border-primary opacity-0 transition-all', {
+			'opacity-100': isActive
+		})}
+	/>
 </a>

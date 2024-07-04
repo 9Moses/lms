@@ -4,7 +4,7 @@
 </script>
 
 <div class="h-full">
-	<div class="fixed inset-y-0 z-50 h-[80px] w-full md:pl-[56]">
+	<div class="fixed inset-y-0 z-50 h-[80px] w-full md:pl-56">
 		<!-- Navbar -->
 		<Navbar />
 	</div>

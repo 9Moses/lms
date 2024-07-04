@@ -5,6 +5,7 @@
 
 <div class="flex h-full items-center border-b bg-background p-4 shadow-sm">
 	<!-- mobilesidebar -->
-	<MobileSidebar />
+
 	<NavbarRoutes />
+	<MobileSidebar />
 </div>
