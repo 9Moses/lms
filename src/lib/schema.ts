@@ -28,3 +28,5 @@ export const courseSchema = z.object({
 });
 
 export const titleSchema = courseSchema.pick({ title: true });
+
+export type CourseSchema = z.infer<typeof courseSchema>;

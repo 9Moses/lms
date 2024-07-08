@@ -3,6 +3,7 @@ import type { RecordModel } from 'pocketbase';
 import { fail, message, superValidate } from 'sveltekit-superforms';
 import type { ClientResponseError } from 'pocketbase';
 import { zod } from 'sveltekit-superforms/adapters';
+import { redirect } from '@sveltejs/kit';
 //import { redirect } from '@sveltejs/kit';
 
 export const load = async () => {
@@ -29,15 +30,6 @@ export const actions = {
 			const { message: errorMessage } = e as ClientResponseError;
 			return message(form, errorMessage, { status: 400 });
 		}
-		return {
-			status: 303,
-			headers: {
-				location: `/teacher/courses/${courseRecord.id}`
-			},
-			body: {
-				success: { message: 'Course created successfully' },
-				form
-			}
-		};
+		redirect(303, `/teacher/courses/${courseRecord.id}`)
 	}
 };
